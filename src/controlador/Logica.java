@@ -41,6 +41,10 @@ public class Logica {
             out.writeFloat(totalGastos);
             out.writeFloat(totalIngresos);
             out.writeFloat(Balance);
+
+            for (Colaborador colaborador : colaboradores) {
+                System.out.println(colaborador.toString());
+            }
             
             out.close();
             fileOut.close();
