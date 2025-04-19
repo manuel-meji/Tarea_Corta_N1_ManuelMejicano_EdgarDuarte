@@ -15,9 +15,11 @@ public class Agua extends Gastos {
     }
 
 @Override
-    public void mostrarAdicionales() {
-        
-        
+    public String mostrarAdicionales() {
+        String txt = "";
+        txt += "Proveedor: " + proveedor + "\n";
+        txt += "Número de abonado: " + nAbonado + "\n";
+        return txt;
     }
 
 public Agua(Float monto, LocalDate fecha, String motivo, String mes, String categoria, String año) {

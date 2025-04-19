@@ -22,9 +22,11 @@ public class Electricidad extends Gastos {
     }
 
     @Override
-    public void mostrarAdicionales() {
-        System.out.println("Electricidad [monto= " + getMonto() + ", fecha= " + getFecha() + ", motivo= " + getMotivo() + ", mes= " + getMes()
-                + ", categoria= " + getTipo() + "]");
+    public String mostrarAdicionales() {
+        String txt = "";
+        txt += "Nombre de la empresa: " + nombreEmpresa + "\n";
+        txt += "NISE: " + NISE + "\n";
+        return txt;
     }
 
 }

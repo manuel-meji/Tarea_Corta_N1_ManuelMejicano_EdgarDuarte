@@ -24,9 +24,11 @@ public class Telefono extends Gastos {
     }
 
     @Override
-    public void mostrarAdicionales() {
-        System.out.println("Telefono [monto= " + getMonto() + ", fecha= " + getFecha() + ", motivo= " + getMotivo()
-                + ", mes= " + getMes() + ", categoria= " + getTipo() + "]");
+    public String mostrarAdicionales() {
+        String txt = "";
+        txt += "Compañia telefonica: " + compañiaTelefonica + "\n";
+        txt += "Numero de telefono: " + numeroTelefono + "\n";
+        return txt;
     }
 
 }

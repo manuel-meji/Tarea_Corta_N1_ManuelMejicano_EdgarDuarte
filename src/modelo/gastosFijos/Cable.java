@@ -24,7 +24,10 @@ public class Cable extends Gastos {
     }
 
     @Override
-    public void mostrarAdicionales() {
-        System.out.println("No hay adicionales para este gasto.");
+    public String mostrarAdicionales() {
+        String txt = "";
+        txt += "Compañia: " + compañia + "\n";
+        txt += "Numero de cliente: " + nCliente + "\n";
+        return txt;
     }
 }

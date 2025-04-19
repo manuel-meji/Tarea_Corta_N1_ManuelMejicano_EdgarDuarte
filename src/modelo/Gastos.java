@@ -23,8 +23,20 @@ public Gastos(Float monto, LocalDate fecha, String motivo, String mes,String tip
         this.año = año;
     }
 
-    public abstract void mostrarAdicionales();
+    public abstract String mostrarAdicionales();
     
+    public String mostrarGasto(){
+        String txt = "";
+        txt += "Fecha: " + fecha + "\n";	
+        txt += "Monto: " + monto + "\n";
+        txt += "Motivo: " + motivo + "\n";
+        txt += "Tipo: " + tipo + "\n";
+        txt += "Mes: " + mes + "\n";
+        txt += "Año: " + año + "\n";
+
+        txt += mostrarAdicionales() + "\n";
+        return txt;
+    }
 
     public Float getMonto() {
         return monto;

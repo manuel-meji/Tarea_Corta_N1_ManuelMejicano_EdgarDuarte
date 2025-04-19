@@ -39,8 +39,10 @@ public class GastosVarios extends Gastos {
     }
 
     @Override
-    public void mostrarAdicionales() {
-        System.out.println("No hay adicionales para Gastos Varios.");
+    public String mostrarAdicionales() {
+        String txt = "";
+        txt += "Categoria de gasto: " + categoria + "\n";
+        return txt;
     }
 
 }

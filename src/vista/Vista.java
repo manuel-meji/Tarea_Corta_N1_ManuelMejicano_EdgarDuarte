@@ -333,10 +333,9 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
             String motivo = "Pago de " + tipo;
             String año = String.valueOf(fecha.getYear());
 
-            
-            String categorias[]= {"Medicamentos", "Alimentos", "Transporte", "Ropa", "Actividades recreativas", "Otros"};
+            String categorias[] = { "Medicamentos", "Alimentos", "Transporte", "Ropa", "Actividades recreativas",
+                    "Otros" };
             JComboBox jComboCategoria = new JComboBox<>(categorias);
-
 
             switch (tipo) {
                 case "Agua":
@@ -356,14 +355,14 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                     logica.gastos.add(new Telefono(monto, fecha, motivo, mes, "Gastos Fijos", año));
                     break;
                 case "Otros Gastos":
-                int op = JOptionPane.showConfirmDialog(null, jComboCategoria, "Seleccione la categoría",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-                if (op == JOptionPane.OK_OPTION) {
-                    String categoria = (String) jComboCategoria.getSelectedItem();
-                    motivo = JOptionPane.showInputDialog("Ingrese el motivo del gasto:");
-                    logica.gastos.add(new GastosVarios(monto, fecha, motivo, mes, "Gastos Varios", año, categoria));
-                }
-                    
+                    int op = JOptionPane.showConfirmDialog(null, jComboCategoria, "Seleccione la categoría",
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    if (op == JOptionPane.OK_OPTION) {
+                        String categoria = (String) jComboCategoria.getSelectedItem();
+                        motivo = JOptionPane.showInputDialog("Ingrese el motivo del gasto:");
+                        logica.gastos.add(new GastosVarios(monto, fecha, motivo, mes, "Gastos Varios", año, categoria));
+                    }
+
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Tipo de gasto no válido");
@@ -481,7 +480,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
             switch (op) {
                 case 0:
-                    
+
                     mtConsultaIngresos.setColumnIdentifiers(columnas);
                     tablaConsulta.setModel(mtConsultaIngresos);
 
@@ -493,7 +492,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                     tablaConsulta.setModel(mtConsultaGastos);
                     break;
                 default:
-                
+
                     // panel.remove(scroll);
                     break;
             }
@@ -611,6 +610,26 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
         });
         panel.add(botonConsultar);
+
+        JButton buttonDetalles = new JButton("Detalles");
+        buttonDetalles.setBounds(800, 150, 100, 30);
+        buttonDetalles.setBackground(new Color(0x097CFF));
+        buttonDetalles.setForeground(Color.white);
+        buttonDetalles.addActionListener(e -> {
+            if (tipoConsultaJCombo.getSelectedIndex() == 1) {
+
+                int filaSeleccionada = tablaConsulta.getSelectedRow();
+                if (filaSeleccionada != -1) {
+                    String detalles = logica.gastos.get(filaSeleccionada).mostrarGasto() ;
+                    JOptionPane.showMessageDialog(null, detalles, "Detalles del gasto",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione una fila para ver los detalles");
+                }
+
+            }
+
+        });
 
         return panel;
     }

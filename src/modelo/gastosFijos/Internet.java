@@ -24,8 +24,11 @@ public class Internet extends Gastos {
     }
 
     @Override
-    public void mostrarAdicionales() {
-        System.out.println("No hay adicionales para este gasto fijo.");
+    public String mostrarAdicionales() {
+        String txt = "";
+        txt += "Proveedor: " + proveedor + "\n";
+        txt += "Megas contradas: " + megas + "\n";
+        return txt;
     }
 
     @Override
