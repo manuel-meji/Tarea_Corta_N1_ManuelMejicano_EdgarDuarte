@@ -43,7 +43,6 @@ public class Logica {
             out.writeFloat(Balance);
 
             
-            
             out.close();
             fileOut.close();
         
