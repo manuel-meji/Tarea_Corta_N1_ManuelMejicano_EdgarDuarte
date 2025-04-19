@@ -45,6 +45,10 @@ public class Logica {
             for (Colaborador colaborador : colaboradores) {
                 System.out.println(colaborador.toString());
             }
+
+            for (Ingresos ingreso : ingresos) {
+                System.out.println(ingreso.toString());
+            }
             
             out.close();
             fileOut.close();
