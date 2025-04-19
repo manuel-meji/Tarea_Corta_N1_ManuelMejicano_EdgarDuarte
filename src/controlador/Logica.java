@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import modelo.Colaborador;
 import modelo.Gastos;
 import modelo.Ingresos;
@@ -50,11 +52,22 @@ public class Logica {
     public void recuperar(){
         try {
             FileInputStream fileIn = new FileInputStream("colaboradores.dat");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
+
+            try(ObjectInputStream entrada = new ObjectInputStream(fileIn)){
+                colaboradores = (ArrayList<Colaborador>) entrada.readObject();
+                ingresos = (ArrayList<Ingresos>) entrada.readObject();
+                gastos = (ArrayList<Gastos>) entrada.readObject();
+                totalGastos = entrada.readFloat();
+                totalIngresos = entrada.readFloat();
+                Balance = entrada.readFloat();
+                
+                System.out.println("Los datos han sido recuperados de FAMILY.dat");
+            }
+           
             
             
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (IOException | ClassNotFoundException w) {
+            JOptionPane.showMessageDialog(null, "Algo salió mal");
         }
         
     }
