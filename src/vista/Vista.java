@@ -612,7 +612,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         panel.add(botonConsultar);
 
         JButton buttonDetalles = new JButton("Detalles");
-        buttonDetalles.setBounds(800, 150, 100, 30);
+        buttonDetalles.setBounds(800, 600, 100, 30);
         buttonDetalles.setBackground(new Color(0x097CFF));
         buttonDetalles.setForeground(Color.white);
         buttonDetalles.addActionListener(e -> {
@@ -627,9 +627,12 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                     JOptionPane.showMessageDialog(null, "Seleccione una fila para ver los detalles");
                 }
 
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione la pestaña de gastos para ver los detalles");
             }
 
         });
+        panel.add(buttonDetalles);
 
         return panel;
     }
