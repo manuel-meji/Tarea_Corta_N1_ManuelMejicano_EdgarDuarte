@@ -1,8 +1,9 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Gastos {
+public abstract class Gastos implements Serializable{
 
     protected Float monto;
     protected LocalDate fecha;

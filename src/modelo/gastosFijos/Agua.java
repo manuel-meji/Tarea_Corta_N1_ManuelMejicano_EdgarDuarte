@@ -1,11 +1,12 @@
 package modelo.gastosFijos;
 
+
 import java.time.LocalDate;
 
 
 import modelo.Gastos;
 
-public class Agua extends Gastos {
+public class Agua extends Gastos  {
 
    final static String proveedor = "AYA";
    final static String nAbonado = "1234567890";

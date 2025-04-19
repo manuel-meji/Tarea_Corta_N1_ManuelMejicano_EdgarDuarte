@@ -1,5 +1,6 @@
 package modelo.gastosFijos;
 
+
 import java.time.LocalDate;
 import modelo.Gastos;
 

@@ -1,5 +1,6 @@
 package modelo;
 
+
 import java.time.LocalDate;
 
 public class GastosVarios extends Gastos {

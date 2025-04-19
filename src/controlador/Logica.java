@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -14,7 +15,7 @@ import modelo.Gastos;
 import modelo.Ingresos;
 import vista.Vista;
 
-public class Logica {
+public class Logica implements Serializable {
    public ArrayList<Colaborador> colaboradores = new ArrayList<>();
    public ArrayList<Ingresos> ingresos = new ArrayList<>();
    public ArrayList<Gastos> gastos = new ArrayList<>();

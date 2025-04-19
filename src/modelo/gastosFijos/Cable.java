@@ -1,9 +1,10 @@
 package modelo.gastosFijos;
 
+
 import java.time.LocalDate;
 import modelo.Gastos;
 
-public class Cable extends Gastos {
+public class Cable extends Gastos  {
 
     final static String compañia="Tigo";
     final static int nCliente=673894;
