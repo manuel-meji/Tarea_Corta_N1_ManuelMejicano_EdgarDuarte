@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
 import modelo.Colaborador;
 import modelo.Gastos;
 import modelo.Ingresos;
@@ -51,7 +52,7 @@ public class Logica {
             FileInputStream fileIn = new FileInputStream("colaboradores.dat");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             
-            in.readObject()
+            
         } catch (Exception e) {
             // TODO: handle exception
         }
