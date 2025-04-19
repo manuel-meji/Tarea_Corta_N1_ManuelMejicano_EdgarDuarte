@@ -23,11 +23,17 @@ public class Logica implements Serializable {
    
     
     //Clase de vista
-    Vista vista = new Vista(this);
+    Vista vista; 
 
-    public Logica() {
-        vista.setVisible(true);
+    public Logica() { 
         recuperar();
+      vista = new Vista(this);
+      vista.setVisible(true);
+
+       //Llamamos a LOS MÉTODOS aue crean las tablas, para ver los datos recuperados
+       vista.generarTablaColaboradores();
+       vista.generarTablaIngresos();
+       vista.generarTablaGastos();
 
     }
 
@@ -46,12 +52,11 @@ public class Logica implements Serializable {
             out.close();
             fileOut.close();
         
-            System.out.println("Los datos han sido guardados en FAMILY.dat"); 
+            System.out.println( "Los datos han sido guardados en FAMILY.dat"); 
         } 
     }
 
     public void recuperar(){
-
         try {
             FileInputStream fileIn = new FileInputStream("FAMILY.dat");
 
@@ -62,15 +67,20 @@ public class Logica implements Serializable {
                 totalGastos = entrada.readFloat();
                 totalIngresos = entrada.readFloat();
                 Balance = entrada.readFloat();
+
+                entrada.close();
                 
-                JOptionPane.showMessageDialog(null, "Los datos han sido recuperados de FAMILY.dat");
+                JOptionPane.showMessageDialog(null, "¡Hey, bienvenido de nuevo!\n"
+             +"Los datos han sido recuperados de FAMILY.dat");
             }
-           
-            
             
         } catch (IOException | ClassNotFoundException w) {
-            JOptionPane.showMessageDialog(null, "Algo salió mal");
+            JOptionPane.showMessageDialog(null, "Bienvenido a Finanzas Familiares\n" +
+                    "No se encontraron datos guardados.");
         }
+
+       
+        
         
     }
 

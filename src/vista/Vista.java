@@ -50,6 +50,9 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
     public Vista(Logica logica) {
         this.logica = logica;
         inicializarComponentes();
+        generarTablaIngresos();
+        generarTablaColaboradores();
+        
         
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -59,6 +62,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                 if (respuesta == JOptionPane.YES_OPTION) {
                     try {
                         logica.guardar();
+                        System.exit(0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -66,7 +70,6 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                     System.exit(0);
                 }
                else if (respuesta == JOptionPane.CANCEL_OPTION) {
-                    
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
 
@@ -94,6 +97,8 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         tabbedPane.add("Contribuyentes", panelContribuyentes());
         tabbedPane.add("Gastos", RegistroGastos());
         tabbedPane.add("Consultas", panelConsultas());
+
+        
 
     }
 
@@ -184,7 +189,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
             if (filaSeleccionada != -1) {
                 mtIngresos.removeRow(filaSeleccionada);
                 logica.ingresos.remove(filaSeleccionada);
-                generartablaConsulta();
+                generarTablaGastos();
             }
         });
 
@@ -395,7 +400,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
             tipoGastoJCombo.setSelectedIndex(0);
             fechaGasto.setDate(null);
 
-            generartablaConsulta();
+            generarTablaGastos();
 
             JOptionPane.showMessageDialog(null, "Agregado exitosamente");
 
@@ -421,7 +426,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
     }
 
-    public void generartablaConsulta() {
+    public void generarTablaGastos() {
         mtGastos.setRowCount(0); // Limpiar la tablaColaboradores antes de agregar los nuevos datos
 
         for (int i = 0; i < logica.gastos.size(); i++) {

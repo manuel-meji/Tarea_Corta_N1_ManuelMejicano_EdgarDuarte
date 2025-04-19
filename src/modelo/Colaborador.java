@@ -1,6 +1,8 @@
 package modelo;
 
-public class Colaborador {
+import java.io.Serializable;
+
+public class Colaborador implements Serializable{
     String nombre;
     float montos;
     String parentesco;

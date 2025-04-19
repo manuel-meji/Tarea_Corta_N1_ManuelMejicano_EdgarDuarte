@@ -1,8 +1,9 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Ingresos {
+public class Ingresos implements Serializable{
     String colaborador,mes,año;
     LocalDate fecha;
     String metodo;
