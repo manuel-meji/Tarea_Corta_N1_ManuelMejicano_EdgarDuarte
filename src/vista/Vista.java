@@ -50,6 +50,28 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
     public Vista(Logica logica) {
         this.logica = logica;
         inicializarComponentes();
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea guardar los cambios?", "Guardar",
+                        JOptionPane.YES_NO_CANCEL_OPTION);
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    try {
+                        logica.guardar();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (respuesta == JOptionPane.NO_OPTION) {
+                    System.exit(0);
+                }
+               else if (respuesta == JOptionPane.CANCEL_OPTION) {
+                    
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+
+            }
+        });
     }
 
     public void inicializarComponentes() {

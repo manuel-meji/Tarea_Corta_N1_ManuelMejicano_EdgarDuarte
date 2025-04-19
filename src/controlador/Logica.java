@@ -7,9 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import modelo.Colaborador;
 import modelo.Gastos;
 import modelo.Ingresos;
@@ -29,6 +27,7 @@ public class Logica implements Serializable {
 
     public Logica() {
         vista.setVisible(true);
+        recuperar();
 
     }
 
@@ -52,8 +51,9 @@ public class Logica implements Serializable {
     }
 
     public void recuperar(){
+
         try {
-            FileInputStream fileIn = new FileInputStream("colaboradores.dat");
+            FileInputStream fileIn = new FileInputStream("FAMILY.dat");
 
             try(ObjectInputStream entrada = new ObjectInputStream(fileIn)){
                 colaboradores = (ArrayList<Colaborador>) entrada.readObject();
@@ -63,7 +63,7 @@ public class Logica implements Serializable {
                 totalIngresos = entrada.readFloat();
                 Balance = entrada.readFloat();
                 
-                System.out.println("Los datos han sido recuperados de FAMILY.dat");
+                JOptionPane.showMessageDialog(null, "Los datos han sido recuperados de FAMILY.dat");
             }
            
             
