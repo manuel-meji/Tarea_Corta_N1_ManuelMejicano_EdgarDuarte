@@ -14,7 +14,8 @@ public class App {
         } catch (Exception ex) {
             System.err.println("Algo no salió bien");
         }
-
+        // Se inicializa la clase Logica, que es la encargada de manejar la logica del programa
+        // y de interactuar con la vista y el modelo
         Logica logica = new Logica();
 
        

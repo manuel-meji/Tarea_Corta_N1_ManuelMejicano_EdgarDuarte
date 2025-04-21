@@ -14,9 +14,16 @@ import modelo.Ingresos;
 import vista.Vista;
 
 public class Logica implements Serializable {
+
+    // Se declaran las variables de tipo ArrayList para almacenar los datos de los colaboradores, ingresos y gastos
+    // de marera publica para que puedan ser accedidas desde otras clases
    public ArrayList<Colaborador> colaboradores = new ArrayList<>();
    public ArrayList<Ingresos> ingresos = new ArrayList<>();
    public ArrayList<Gastos> gastos = new ArrayList<>();
+
+   // Variables para almacenar los totales de gastos, ingresos y balance
+   // Se inicializan en 0 para evitar errores al calcular el balance
+   // al igual que los ArrayList, son publicas para que puedan ser accedidas desde otras clases
    public float totalGastos = 0;
    public float totalIngresos = 0;
    public float Balance = 0;
@@ -26,18 +33,23 @@ public class Logica implements Serializable {
     Vista vista; 
 
     public Logica() { 
+        // se llama al metodo recuperar() para cargar los datos al iniciar el programa
         recuperar();
+
+        // al crear la instancia desde la clase principal, se inicializa la vista
+        // y se le pasa la instancia de la clase Logica para que pueda acceder a los datos
       vista = new Vista(this);
+      //se hace visible la vista para que el usuario pueda interactuar con ella
       vista.setVisible(true);
 
-       //Llamamos a LOS MÉTODOS aue crean las tablas, para ver los datos recuperados
+       //Llamamos a LOS MÉTODOS que crean las tablas, para ver los datos recuperados
        vista.generarTablaColaboradores();
        vista.generarTablaIngresos();
        vista.generarTablaGastos();
 
     }
 
-
+// metodo que guarda los datos del programa en un archivo .dat
     public void guardar() throws IOException{
         FileOutputStream fileOut = new FileOutputStream("FAMILY.dat");
         try ( ObjectOutputStream out = new ObjectOutputStream(fileOut)){
@@ -56,6 +68,8 @@ public class Logica implements Serializable {
         } 
     }
 
+
+    // metodo que recupera los datos del programa desde un archivo .dat
     public void recuperar(){
         try {
             FileInputStream fileIn = new FileInputStream("FAMILY.dat");
@@ -154,6 +168,12 @@ public class Logica implements Serializable {
         this.vista = vista;
     }
 
+    // este metodo lo que hace es recorrer los ArrayList de ingresos y gastos
+    // y sumar los montos de cada uno, para luego calcular el balance
+    // una vez que se han sumado todos los ingresos y gastos y se ha calculado el balance
+    // se guardan en las variables correspondientes
+    // declarado como public para que pueda ser accedido desde otras clases
+    // y asi poder actualizar los datos en la vista
     public void calcularEstadisticas() {
         totalGastos = 0;
         totalIngresos = 0;
