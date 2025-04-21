@@ -158,8 +158,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         panel.add(scroll);
         tablaColaboradores.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tablaColaboradores.setFillsViewportHeight(true);
-        // modelo.addRow(new Object[] { "Contribuyente 1", "1000", "01/01/2023",
-        // "Efectivo" });
+
 
         JButton botonAgregar = new JButton("Agregar");
         botonAgregar.setBounds(800, 600, 100, 30);
@@ -440,9 +439,6 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         }
 
     }
-
-    // Modelos de tablas definidas de forma global para poder controlarla en métodos
-    // distintos.
 
     DefaultTableModel mtConsultaGastos = new DefaultTableModel();
     DefaultTableModel mtConsultaIngresos = new DefaultTableModel();
