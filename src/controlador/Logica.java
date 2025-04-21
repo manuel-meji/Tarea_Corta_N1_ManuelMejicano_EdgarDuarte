@@ -153,9 +153,22 @@ public class Logica implements Serializable {
     public void setVista(Vista vista) {
         this.vista = vista;
     }
-    
-    
 
-   
+    public void calcularEstadisticas() {
+        totalGastos = 0;
+        totalIngresos = 0;
+        Balance = 0;
+        
+        for (Gastos gasto : gastos) {
+            totalGastos += gasto.getMonto();
+        }
+        
+        for (Ingresos ingreso : ingresos) {
+            totalIngresos += ingreso.getMonto();
+        }
+        
+        Balance = totalIngresos - totalGastos;
+    }
+
 
 }

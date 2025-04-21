@@ -96,8 +96,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         tabbedPane.add("Contribuyentes", panelContribuyentes());
         tabbedPane.add("Gastos", RegistroGastos());
         tabbedPane.add("Consultas", panelConsultas());
-
-        
+   
 
     }
 
@@ -189,6 +188,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                 mtIngresos.removeRow(filaSeleccionada);
                 logica.ingresos.remove(filaSeleccionada);
                 generarTablaGastos();
+                logica.calcularEstadisticas();
             }
         });
 
@@ -205,7 +205,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         mes = fecha.getMonth().getDisplayName(textStyle, locale);
         String año = String.valueOf(fecha.getYear());
         logica.ingresos.add(new Ingresos(colaborador, mes, año, fecha, metodo, monto));
-        logica.totalIngresos += monto;
+        logica.calcularEstadisticas();
 
     }
 
@@ -213,7 +213,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         mtIngresos.setRowCount(0); // Limpiar la tablaColaboradores antes de agregar los nuevos datos
         for (int i = 0; i < logica.ingresos.size(); i++) {
             mtIngresos.addRow(new Object[] { logica.ingresos.get(i).getColaborador(),
-                    logica.ingresos.get(i).getMonto(),
+                   "₡" +logica.ingresos.get(i).getMonto(),
                     logica.ingresos.get(i).getFecha(),
                     logica.ingresos.get(i).getMetodo() });
         }
@@ -400,6 +400,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
             fechaGasto.setDate(null);
 
             generarTablaGastos();
+            logica.calcularEstadisticas();
 
             JOptionPane.showMessageDialog(null, "Agregado exitosamente");
 
@@ -419,6 +420,8 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
             } else {
                 JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar");
             }
+
+            logica.calcularEstadisticas();
         });
         panel.add(botonEliminar);
         return panel;
@@ -429,7 +432,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         mtGastos.setRowCount(0); // Limpiar la tablaColaboradores antes de agregar los nuevos datos
 
         for (int i = 0; i < logica.gastos.size(); i++) {
-            mtGastos.addRow(new Object[] { logica.gastos.get(i).getMonto(),
+            mtGastos.addRow(new Object[] { "₡"+logica.gastos.get(i).getMonto(),
                     logica.gastos.get(i).getFecha(),
                     logica.gastos.get(i).getMotivo(),
                     logica.gastos.get(i).getTipo(),
@@ -549,7 +552,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                         if (logica.ingresos.get(i).getMes().equalsIgnoreCase(mes)
                                 && logica.ingresos.get(i).getAño().equals(anio)) {
                             mtConsultaIngresos.addRow(new Object[] { logica.ingresos.get(i).getColaborador(),
-                                    logica.ingresos.get(i).getMonto(),
+                                    "₡"+logica.ingresos.get(i).getMonto(),
                                     logica.ingresos.get(i).getFecha(),
                                     logica.ingresos.get(i).getMetodo() });
                             ingreso += logica.ingresos.get(i).getMonto();
@@ -564,10 +567,6 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                         JOptionPane.showMessageDialog(null, "Consulta realizada exitosamente");
                     }
 
-                    // JTextField totalIngresos = new JTextField("Total de ingresos: " + ingreso);
-                    // totalIngresos.setBounds(10, 200, 200, 30);
-                    // totalIngresos.setEditable(false);
-                    // panel.add(totalIngresos);
 
                     balanceArea.setText("Total de ingresos: " + ingreso);
 
@@ -578,7 +577,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                     for (int i = 0; i < logica.gastos.size(); i++) {
                         if (logica.gastos.get(i).getMes().equalsIgnoreCase(mes)
                                 && logica.gastos.get(i).getAño().equals(anio)) {
-                            mtConsultaGastos.addRow(new Object[] { logica.gastos.get(i).getMonto(),
+                            mtConsultaGastos.addRow(new Object[] { "₡"+logica.gastos.get(i).getMonto(),
                                     logica.gastos.get(i).getFecha(),
                                     logica.gastos.get(i).getMotivo(),
                                     logica.gastos.get(i).getTipo(),
@@ -592,7 +591,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                         JOptionPane.showMessageDialog(null, "Consulta realizada exitosamente");
                     }
 
-                    balanceArea.setText("Total de gastos: " + gasto);
+                    balanceArea.setText("Total de gastos: ₡" + gasto);
 
                     break;
                 case "Balance":
@@ -659,6 +658,20 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
         });
         panel.add(buttonDetalles);
+
+
+
+        JButton buttonEstadisticas = new JButton("Ver estadisticas generales");
+        buttonEstadisticas.setBounds(550, 180, 300, 30);
+        buttonEstadisticas.setBackground(Color.green);
+        buttonEstadisticas.setForeground(Color.white);
+        buttonEstadisticas.addActionListener(e -> {
+            String estadisticas = "Total de ingresos hasta el momento: ₡" + logica.totalIngresos + "\n" + "Total de gastos hasta el momento:  ₡"
+                    + logica.totalGastos + "\n" + "Balance total: ₡" + logica.Balance;
+            JOptionPane.showMessageDialog(null, estadisticas, "Estadísticas generales",
+                    JOptionPane.INFORMATION_MESSAGE);
+        });
+        panel.add(buttonEstadisticas);
 
         return panel;
     }
