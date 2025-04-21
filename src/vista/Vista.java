@@ -626,7 +626,6 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                         JOptionPane.showMessageDialog(null, "Consulta realizada exitosamente");
                     }
 
-
                     balanceArea.setText("Total de ingresos: " + ingreso);
 
                     break;
