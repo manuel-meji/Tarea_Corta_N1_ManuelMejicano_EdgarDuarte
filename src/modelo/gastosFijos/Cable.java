@@ -17,12 +17,6 @@ public class Cable extends Gastos  {
         super(monto, fecha, motivo, mes, categoria,año);
     }
 
-    @Override
-    public String toString() {
-        return "Cable [monto= " + getMonto() + ", fecha= " + getFecha() + ", motivo= " + getMotivo() + ", mes= " + getMes()
-                + ", categoria= " + getTipo() + "]";
-
-    }
 
     @Override
     public String mostrarAdicionales() {

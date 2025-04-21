@@ -16,11 +16,7 @@ public class Electricidad extends Gastos {
         super(monto, fecha, motivo, mes, categoria,año);
     }
 
-    @Override
-    public String toString() {
-        return "Electricidad [monto= " + getMonto() + ", fecha= " + getFecha() + ", motivo= " + getMotivo() + ", mes= " + getMes()
-                + ", categoria= " + getTipo() + "]";
-    }
+
 
     @Override
     public String mostrarAdicionales() {

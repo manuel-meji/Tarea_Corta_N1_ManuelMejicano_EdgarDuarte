@@ -16,12 +16,6 @@ public class Telefono extends Gastos {
         super(monto, fecha, motivo, mes, tipo, año);
     }
 
-    @Override
-    public String toString() {
-        return "Telefono [monto= " + getMonto() + ", fecha= " + getFecha() + ", motivo= " + getMotivo() + ", mes= "
-                + getMes()
-                + ", categoria= " + getTipo() + "]";
-    }
 
     @Override
     public String mostrarAdicionales() {

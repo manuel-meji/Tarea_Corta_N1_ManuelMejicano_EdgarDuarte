@@ -32,13 +32,6 @@ public class GastosVarios extends Gastos {
 
 
 
-
-    @Override
-    public String toString() {
-        return "GastosVarios [monto=" + getMonto() + ", fecha=" + getFecha() + ", motivo=" + getMotivo() + ", mes="
-                + getMes() + ", categoria=" + getTipo() + "]";
-    }
-
     @Override
     public String mostrarAdicionales() {
         String txt = "";
