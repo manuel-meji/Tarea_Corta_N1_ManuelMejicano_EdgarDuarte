@@ -50,8 +50,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
     public Vista(Logica logica) {
         this.logica = logica;
         inicializarComponentes();
-        generarTablaIngresos();
-        generarTablaColaboradores();
+
         
         
         this.addWindowListener(new java.awt.event.WindowAdapter() {
