@@ -3,11 +3,11 @@ package modelo;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Gastos implements Serializable{
+public abstract class Gastos implements Serializable {
 
     protected Float monto;
     protected LocalDate fecha;
-    protected String motivo, mes,año;
+    protected String motivo, mes, año;
 
     protected String tipo;
 
@@ -15,7 +15,9 @@ public abstract class Gastos implements Serializable{
 
     }
 
-public Gastos(Float monto, LocalDate fecha, String motivo, String mes,String tipo, String año) {
+    public abstract String mostrarAdicionales();
+
+    public Gastos(Float monto, LocalDate fecha, String motivo, String mes, String tipo, String año) {
         this.monto = monto;
         this.fecha = fecha;
         this.motivo = motivo;
@@ -24,11 +26,9 @@ public Gastos(Float monto, LocalDate fecha, String motivo, String mes,String tip
         this.año = año;
     }
 
-    public abstract String mostrarAdicionales();
-    
-    public String mostrarGasto(){
+    public String mostrarGasto() {
         String txt = "";
-        txt += "Fecha: " + fecha + "\n";	
+        txt += "Fecha: " + fecha + "\n";
         txt += "Monto: " + monto + "\n";
         txt += "Motivo: " + motivo + "\n";
         txt += "Tipo: " + tipo + "\n";

@@ -9,9 +9,6 @@ public class Cable extends Gastos  {
     final static String compañia="Tigo";
     final static int nCliente=673894;
 
-    public Cable() {
-        super();
-    }
 
     public Cable(Float monto, LocalDate fecha, String motivo, String mes, String categoria,String año) {
         super(monto, fecha, motivo, mes, categoria,año);

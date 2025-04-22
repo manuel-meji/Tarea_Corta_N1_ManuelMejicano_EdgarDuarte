@@ -9,9 +9,9 @@ public class Colaborador implements Serializable{
 
 
     
-    public Colaborador(String nombre, float montos, String parentesco) {
+    public Colaborador(String nombre, String parentesco) {
         this.nombre = nombre;
-        this.montos = montos;
+        montos=0;
         this.parentesco = parentesco;
     }
 
@@ -26,7 +26,7 @@ public class Colaborador implements Serializable{
         return montos;
     }
     public void setMontos(float montos) {
-        this.montos = montos;
+        this.montos += montos;
     }
     public String getParentesco() {
         return parentesco;

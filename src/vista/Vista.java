@@ -36,13 +36,14 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
     // de Javax.Swing
     // Se crea un contenedor para agregar los componentes
     Container cont = new Container();
-    // se crean los modelos de tablas de forma global para poder acceder a ellas desde cualquier metodo 
+    // se crean los modelos de tablas de forma global para poder acceder a ellas
+    // desde cualquier metodo
     DefaultTableModel mtIngresos = new DefaultTableModel();
     DefaultTableModel mtColaborador = new DefaultTableModel();
     DefaultTableModel mtGastos = new DefaultTableModel();
 
-
-    // aqui se crea el JComboBox para los contribuyentes, que me permite modificarlo desde varias clases al ser global
+    // aqui se crea el JComboBox para los contribuyentes, que me permite modificarlo
+    // desde varias clases al ser global
     JComboBox<String> contribuyentesJCombo = new JComboBox<>();
 
     Logica logica;
@@ -52,13 +53,17 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
     public Vista(Logica logica) {
         this.logica = logica;
-        //en este metodo se inicializan los componentes de la ventana, creando un JTabbedPane y agregando los paneles correspondientes
-        // a cada pestaña, y los paneles contienen otros diferentes segun las necesidades
+        // en este metodo se inicializan los componentes de la ventana, creando un
+        // JTabbedPane y agregando los paneles correspondientes
+        // a cada pestaña, y los paneles contienen otros diferentes segun las
+        // necesidades
         inicializarComponentes();
 
-        
-        // este apartado es super importante, ya que cuando el usuario cierra la ventana, se le pregunta si desea guardar los cambios, y si es asi se llama al metodo guardar de la clase logica
-        // y se cierra la ventana, si no desea guardar los cambios se cierra la ventana sin guardar nada, y si elige cancelar se queda en la ventana
+        // este apartado es super importante, ya que cuando el usuario cierra la
+        // ventana, se le pregunta si desea guardar los cambios, y si es asi se llama al
+        // metodo guardar de la clase logica
+        // y se cierra la ventana, si no desea guardar los cambios se cierra la ventana
+        // sin guardar nada, y si elige cancelar se queda en la ventana
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -66,24 +71,24 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                         JOptionPane.YES_NO_CANCEL_OPTION);
                 if (respuesta == JOptionPane.YES_OPTION) {
                     try {
-                        //se llama al metodo guardar de la clase logica, que guarda los datos en un archivo .dat
+                        // se llama al metodo guardar de la clase logica, que guarda los datos en un
+                        // archivo .dat
                         logica.guardar();
                         System.exit(0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else if (respuesta == JOptionPane.NO_OPTION) {
-                    //unicamente se cierra la ventana sin guardar nada y cierra el programa
+                    // unicamente se cierra la ventana sin guardar nada y cierra el programa
                     System.exit(0);
-                }
-               else if (respuesta == JOptionPane.CANCEL_OPTION) {
+                } else if (respuesta == JOptionPane.CANCEL_OPTION) {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
 
             }
         });
     }
-// aqui se crea el JTabbedPane y se le agregan los tabs de cada apartado
+    // aqui se crea el JTabbedPane y se le agregan los tabs de cada apartado
 
     public void inicializarComponentes() {
         super.setBounds(0, 0, 1000, 800);
@@ -97,7 +102,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
         // Creamos el JTabbedPane
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.setBounds(0, 30, 1000, 800);
+        tabbedPane.setBounds(0, 5, 1000, 800);
 
         cont.add(tabbedPane);
 
@@ -105,11 +110,14 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         tabbedPane.add("Contribuyentes", panelContribuyentes());
         tabbedPane.add("Gastos", RegistroGastos());
         tabbedPane.add("Consultas", panelConsultas());
-   
 
     }
-// moldeamos el panel de ingresos, donde se agregan los componentes necesarios para ingresar los datos de los ingresos, como el monto, la fecha y el metodo de pago
-    // y se crea la tabla para mostrar los ingresos ingresados, y se le agregan los botones de agregar y eliminar los ingresos
+
+    // moldeamos el panel de ingresos, donde se agregan los componentes necesarios
+    // para ingresar los datos de los ingresos, como el monto, la fecha y el metodo
+    // de pago
+    // y se crea la tabla para mostrar los ingresos ingresados, y se le agregan los
+    // botones de agregar y eliminar los ingresos
     public JPanel panelIngresos() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -158,33 +166,45 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         String[] columnas = { "Contribuyente", "Monto", "Fecha", "Método" };
         mtIngresos.setColumnIdentifiers(columnas);
 
-        JTable tablaColaboradores = new JTable();
-        tablaColaboradores.setBounds(10, 150, 900, 400);
-        tablaColaboradores.setModel(mtIngresos);
+        JTable tablaIngresos = new JTable();
+        tablaIngresos.setBounds(10, 150, 900, 400);
+        tablaIngresos.setModel(mtIngresos);
 
-        JScrollPane scroll = new JScrollPane(tablaColaboradores);
+        JScrollPane scroll = new JScrollPane(tablaIngresos);
         scroll.setBounds(10, 170, 950, 400);
 
         panel.add(scroll);
-        tablaColaboradores.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tablaColaboradores.setFillsViewportHeight(true);
-
+        tablaIngresos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaIngresos.setFillsViewportHeight(true);
 
         JButton botonAgregar = new JButton("Agregar");
         botonAgregar.setBounds(800, 600, 100, 30);
         botonAgregar.setBackground(new Color(0x097CFF));
         botonAgregar.setForeground(Color.white);
         botonAgregar.addActionListener(e -> {
-            String contribuyente = (String) contribuyentesJCombo.getSelectedItem();
-            String monto = montoIngreso.getText();
+
+            Colaborador contribuyente = logica.getColaboradores().get(contribuyentesJCombo.getSelectedIndex());
+            Float monto = Float.parseFloat(montoIngreso.getText());
             LocalDate fecha = fechaIngreso.getDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
             String metodo = (String) metodoJCombo.getSelectedItem();
 
-            //se agrega un nuevo ingreso
-            agregarIngreso(contribuyente, Float.parseFloat(monto), fecha, metodo);
-            //se añade dicho ingreso a la tabla de ingresos
+            // se agrega un nuevo ingreso
+            agregarIngreso(contribuyente, monto, fecha, metodo);
+
+            // se suma el monto al contribuyente, para llevar contabilizado cuanto ha
+            // aportado
+            logica.getColaboradores().get(contribuyentesJCombo.getSelectedIndex()).setMontos(monto);
+            // se añade dicho ingreso a la tabla de ingresos
             mtIngresos.addRow(new Object[] { contribuyente, monto, fecha, metodo });
+
+            // limpia los campos de texto
+            contribuyentesJCombo.setSelectedItem(0);
+            montoIngreso.setText("");
+            fechaIngreso.setDate(null);
+            metodoJCombo.setSelectedIndex(0);
+
             generarTablaIngresos();
+            generarTablaColaboradores();
         });
 
         panel.add(botonAgregar);
@@ -194,7 +214,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         botonEliminar.setBackground(new Color(0xFF0000));
         botonEliminar.setForeground(Color.white);
         botonEliminar.addActionListener(e -> {
-            int filaSeleccionada = tablaColaboradores.getSelectedRow();
+            int filaSeleccionada = tablaIngresos.getSelectedRow();
             if (filaSeleccionada != -1) {
                 // Eliminar la fila seleccionada de la tabla y del Arraylist de ingresos
                 mtIngresos.removeRow(filaSeleccionada);
@@ -209,40 +229,46 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         return panel;
     }
 
-    public void agregarIngreso(String colaborador, float monto, LocalDate fecha, String metodo) {
+    public void agregarIngreso(Colaborador colaborador, float monto, LocalDate fecha, String metodo) {
         String mes;
-        // con ayuda de la herramienta de IA obtenemos el mes en español utilizando el parametro de la fecha que recibimos
+
+        // con ayuda de la herramienta de IA obtenemos el mes en español utilizando el
+        // parametro de la fecha que recibimos
         java.util.Locale locale = new java.util.Locale("es", "ES");
         java.time.format.TextStyle textStyle = java.time.format.TextStyle.FULL;
         mes = fecha.getMonth().getDisplayName(textStyle, locale);
-        //se obtiene el mes en español y en formato String
+        // se obtiene el mes en español y en formato String
         // obtenemos el año en formato String
         String año = String.valueOf(fecha.getYear());
-        //instanciamos el objeto ingresos y lo añadimos al arraylist de ingresos
+        // instanciamos el objeto ingresos y lo añadimos al arraylist de ingresos
         logica.ingresos.add(new Ingresos(colaborador, mes, año, fecha, metodo, monto));
 
-        // se hace la llamada al metodo de la clase logica que calcula las estadisticas generales, como el total de ingresos ,gastos y el balance
+        // se hace la llamada al metodo de la clase logica que calcula las estadisticas
+        // generales, como el total de ingresos ,gastos y el balance
         logica.calcularEstadisticas();
 
     }
 
-
-    // este metodo genera la tabla de ingresos, que se muestra en el panel de ingresos, y se le añaden los datos de los ingresos ingresados
-    //tambien se llama al inicio del programa para mostrar los datos recuperados en caso de que se hayan guardado varios datos
+    // este metodo genera la tabla de ingresos, que se muestra en el panel de
+    // ingresos, y se le añaden los datos de los ingresos ingresados
+    // tambien se llama al inicio del programa para mostrar los datos recuperados en
+    // caso de que se hayan guardado varios datos
     // y asi poder verlos al iniciar el programa
     public void generarTablaIngresos() {
         mtIngresos.setRowCount(0); // Limpiar la tablaColaboradores antes de agregar los nuevos datos
         for (int i = 0; i < logica.ingresos.size(); i++) {
-            mtIngresos.addRow(new Object[] { logica.ingresos.get(i).getColaborador(),
-                   "₡" +logica.ingresos.get(i).getMonto(),
+            mtIngresos.addRow(new Object[] { logica.ingresos.get(i).getColaborador().getNombre(),
+                    "₡" + logica.ingresos.get(i).getMonto(),
                     logica.ingresos.get(i).getFecha(),
                     logica.ingresos.get(i).getMetodo() });
         }
     }
 
-
-    // este metodo genera el panel de contribuyentes, donde se agregan los componentes necesarios para ingresar los datos de los contribuyentes, como el nombre y el parentesco
-    //posterior a eso, se genera la tabla de colaboradores, ademas de los botones de agregar y eliminar colaboradores
+    // este metodo genera el panel de contribuyentes, donde se agregan los
+    // componentes necesarios para ingresar los datos de los contribuyentes, como el
+    // nombre y el parentesco
+    // posterior a eso, se genera la tabla de colaboradores, ademas de los botones
+    // de agregar y eliminar colaboradores
     public JPanel panelContribuyentes() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -276,7 +302,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
         JTable tablaColaboradores = new JTable();
         tablaColaboradores.setBounds(10, 150, 900, 400);
-        String[] columnas = { "Nombre", "Parentesco" };
+        String[] columnas = { "Nombre", "Parentesco", "Monto aportado" };
 
         mtColaborador.setColumnIdentifiers(columnas);
         tablaColaboradores.setModel(mtColaborador);
@@ -291,36 +317,62 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         botonAgregar.addActionListener(e -> {
             String nombre = nombreContribuyente.getText();
             String parentesco = (String) parentescoJCombo.getSelectedItem();
-            logica.colaboradores.add(new Colaborador(nombre, 0, parentesco));
-            JOptionPane.showMessageDialog(null, "Agregado exitosamente");
+            logica.colaboradores.add(new Colaborador(nombre, parentesco));
             generarTablaColaboradores();
+            JOptionPane.showMessageDialog(null, "Agregado exitosamente");
+            
+            // limpiamos campos de texto
+            nombreContribuyente.setText("");
+
         });
 
         panel.add(botonAgregar);
 
+        JButton botonEliminar = new JButton("Eliminar");
+        botonEliminar.setBounds(50, 600, 100, 30);
+        botonEliminar.setBackground(new Color(0xFF0000));
+        botonEliminar.setForeground(Color.white);
+        botonEliminar.addActionListener( e -> {
+            int filaSeleccionada = tablaColaboradores.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                // Eliminar la fila seleccionada de la tabla y del Arraylist de contribuyentes
+               
+                logica.colaboradores.remove(filaSeleccionada);
+                JOptionPane.showMessageDialog(null, "Eliminado exitosamente");
+                generarTablaColaboradores();
+            }else{JOptionPane.showMessageDialog(null, "Seleccione una fila de la tabla para eliminar");}
+        });
+        panel.add(botonEliminar);
+
         return panel;
     }
 
-
-    // este metodo genera la tabla de colaboradores, que se muestra en el panel de colaboradores, y se le añaden los datos de los colaboradores ingresados
-    //tambien se llama al inicio del programa para mostrar los datos recuperados en caso de que se hayan guardado varios datos
+    // este metodo genera la tabla de colaboradores, que se muestra en el panel de
+    // colaboradores, y se le añaden los datos de los colaboradores ingresados
+    // tambien se llama al inicio del programa para mostrar los datos recuperados en
+    // caso de que se hayan guardado varios datos
     // y asi poder verlos al iniciar el programa
     public void generarTablaColaboradores() {
         mtColaborador.setRowCount(0); // Limpiar la tablaColaboradores antes de agregar los nuevos datos
         contribuyentesJCombo.removeAllItems();
 
         for (int i = 0; i < logica.colaboradores.size(); i++) {
-            mtColaborador.addRow(new Object[] { logica.colaboradores.get(i).getNombre(),
-                    logica.colaboradores.get(i).getParentesco() });
+            mtColaborador.addRow(new Object[] {
+                    logica.colaboradores.get(i).getNombre(),
+                    logica.colaboradores.get(i).getParentesco(),
+                    "₡" + logica.colaboradores.get(i).getMontos()
+            });
 
             contribuyentesJCombo.addItem(logica.colaboradores.get(i).getNombre());
         }
 
     }
 
-
-    // este metodo genera el panel de gastos, donde se agregan los componentes necesarios para ingresar los datos de los gastos, como el monto, la fecha y el tipo de gasto
-    // y se crea la tabla para mostrar los gastos ingresados, y se le agregan los botones de agregar y eliminar los gastos
+    // este metodo genera el panel de gastos, donde se agregan los componentes
+    // necesarios para ingresar los datos de los gastos, como el monto, la fecha y
+    // el tipo de gasto
+    // y se crea la tabla para mostrar los gastos ingresados, y se le agregan los
+    // botones de agregar y eliminar los gastos
     public JPanel RegistroGastos() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -343,7 +395,8 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
         // Se crea un JDateChooser para seleccionar la fecha
         // Se utiliza la librería com.toedter.calendar para esto
-        // esto permite que el usuario seleccione la fecha de una manera más simple ya que pude seleccionar la fecha desde un calendario
+        // esto permite que el usuario seleccione la fecha de una manera más simple ya
+        // que pude seleccionar la fecha desde un calendario
         // y no escribirla manualmente
         // y se le da el formato de dia/mes/año
         JDateChooser fechaGasto = new JDateChooser();
@@ -382,12 +435,14 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         botonAgregar.setBackground(Color.GREEN);
         botonAgregar.setForeground(Color.white);
         botonAgregar.addActionListener(e -> {
+
             Float monto = Float.parseFloat(montoGasto.getText());
 
             String tipo = (String) tipoGastoJCombo.getSelectedItem();
             String mes;
-            
-            // con ayuda de la herramienta de IA obtenemos el mes en español utilizando el parametro de la fecha que recibimos
+
+            // con ayuda de la herramienta de IA obtenemos el mes en español utilizando el
+            // parametro de la fecha que recibimos
             LocalDate fecha = fechaGasto.getDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
             java.util.Locale locale = new java.util.Locale("es", "ES");
             java.time.format.TextStyle textStyle = java.time.format.TextStyle.FULL;
@@ -398,9 +453,10 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
             String categorias[] = { "Medicamentos", "Alimentos", "Transporte", "Ropa", "Actividades recreativas",
                     "Otros" };
             JComboBox jComboCategoria = new JComboBox<>(categorias);
-            
-            // en este switch se selecciona el tipo de gasto, y dependiendo del tipo de gasto se crea un objeto diferente, y se añade al arraylist de gastos
-            //dependiendo del tipo de gasto se le pide al usuario el motivo del gasto
+
+            // en este switch se selecciona el tipo de gasto, y dependiendo del tipo de
+            // gasto se crea un objeto diferente, y se añade al arraylist de gastos
+            // dependiendo del tipo de gasto se le pide al usuario el motivo del gasto
             switch (tipo) {
                 case "Agua":
                     logica.gastos.add(new Agua(monto, fecha, motivo, mes, "Gastos Fijos", año));
@@ -419,8 +475,9 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                     logica.gastos.add(new Telefono(monto, fecha, motivo, mes, "Gastos Fijos", año));
                     break;
 
-                    // En caso de que el gasto no sea fijo, se le pide al usuario el motivo del gasto 
-                    //al igual se le pide al usuario la categoria del gasto
+                // En caso de que el gasto no sea fijo, se le pide al usuario el motivo del
+                // gasto
+                // al igual se le pide al usuario la categoria del gasto
                 case "Otros Gastos":
                     int op = JOptionPane.showConfirmDialog(null, jComboCategoria, "Seleccione la categoría",
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -441,7 +498,8 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
             fechaGasto.setDate(null);
 
             // una vez añadido al arraylist de gastos, se añade a la tabla de gastos
-            // y se llama al metodo de la clase logica que calcula las estadisticas generales, como el total de ingresos ,gastos y el balance
+            // y se llama al metodo de la clase logica que calcula las estadisticas
+            // generales, como el total de ingresos ,gastos y el balance
             generarTablaGastos();
             logica.calcularEstadisticas();
 
@@ -475,13 +533,16 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
     }
 
 
-    // al igual que el metodo de ingresos, este metodo genera la tabla de gastos, que se muestra en el panel de gastos, y se le añaden los datos de los gastos ingresados
-    //tambien se llama al inicio del programa para mostrar los datos recuperados en caso de que se hayan guardado varios datos
+    // al igual que el metodo de ingresos, este metodo genera la tabla de gastos,
+    // que se muestra en el panel de gastos, y se le añaden los datos de los gastos
+    // ingresados
+    // tambien se llama al inicio del programa para mostrar los datos recuperados en
+    // caso de que se hayan guardado varios datos
     public void generarTablaGastos() {
         mtGastos.setRowCount(0); // Limpiar la tablaColaboradores antes de agregar los nuevos datos
 
         for (int i = 0; i < logica.gastos.size(); i++) {
-            mtGastos.addRow(new Object[] { "₡"+logica.gastos.get(i).getMonto(),
+            mtGastos.addRow(new Object[] { "₡" + logica.gastos.get(i).getMonto(),
                     logica.gastos.get(i).getFecha(),
                     logica.gastos.get(i).getMotivo(),
                     logica.gastos.get(i).getTipo(),
@@ -492,21 +553,29 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
     // Modelos de tablas definidas de forma global para poder controlarla en métodos
     // distintos.
-    // mas que todo para poder acceder a ellas desde el panel de consultas, ya que se
-    // necesita cambiar el modelo de la tabla dependiendo del tipo de consulta que se realize
+    // mas que todo para poder acceder a ellas desde el panel de consultas, ya que
+    // se
+    // necesita cambiar el modelo de la tabla dependiendo del tipo de consulta que
+    // se realize
 
     DefaultTableModel mtConsultaGastos = new DefaultTableModel();
     DefaultTableModel mtConsultaIngresos = new DefaultTableModel();
 
     // Igual el textArea
-    JTextArea balanceArea = new JTextArea();
+    JTextArea balanceArea = new JTextArea("");
 
     public JPanel panelConsultas() {
+
         String[] columnas = { "Contribuyente", "Monto", "Fecha", "Método" };
         mtConsultaIngresos.setColumnIdentifiers(columnas);
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
+
+        balanceArea.setBounds(10, 130, 900, 80);
+        balanceArea.setFont(new Font("Arial", Font.BOLD, 13));
+        balanceArea.setEditable(false);
+        panel.add(balanceArea);
 
         JTable tablaConsulta = new JTable();
         tablaConsulta.setModel(mtConsultaIngresos);
@@ -535,7 +604,8 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
             mesJCombo.addItem(mes);
         }
         panel.add(mesJCombo);
-        // se le pide al usuario que seleccione el año, y se le da la opcion de seleccionar entre los años 2020 y 2025
+        // se le pide al usuario que seleccione el año, y se le da la opcion de
+        // seleccionar entre los años 2020 y 2025
         JLabel label3 = new JLabel("Seleccione el año:");
         label3.setBounds(300, 40, 200, 30);
         panel.add(label3);
@@ -546,8 +616,8 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         }
         panel.add(anioJCombo);
 
-
-        // se le solicita al usuario que indique que desea consultar, si ingresos, gastos o balance
+        // se le solicita al usuario que indique que desea consultar, si ingresos,
+        // gastos o balance
         JLabel label4 = new JLabel("Seleccione el tipo de consulta:");
         label4.setBounds(600, 40, 200, 30);
         panel.add(label4);
@@ -562,7 +632,8 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         tipoConsultaJCombo.addActionListener(e -> {
             int op = tipoConsultaJCombo.getSelectedIndex();
             // Cambiar el modelo de la tabla dependiendo del tipo de consulta
-            // una vez seleccionado el tipo de consulta, se cambia el modelo de la tabla para que se ajuste a los datos que se van a mostrar posteriormente
+            // una vez seleccionado el tipo de consulta, se cambia el modelo de la tabla
+            // para que se ajuste a los datos que se van a mostrar posteriormente
             switch (op) {
                 case 0:
 
@@ -590,30 +661,29 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
 
         botonConsultar.addActionListener(e -> {
 
-            // una vez se le de click al boton de consultar, se obtiene el mes, año y tipo de consulta seleccionados
+            // una vez se le de click al boton de consultar, se obtiene el mes, año y tipo
+            // de consulta seleccionados
             ingreso = 0;
             gasto = 0;
             String mes = (String) mesJCombo.getSelectedItem();
             String anio = (String) anioJCombo.getSelectedItem();
             String tipoConsulta = (String) tipoConsultaJCombo.getSelectedItem();
 
-            balanceArea.setBounds(10, 130, 900, 80);
-            balanceArea.setEditable(false);
-            panel.add(balanceArea);
-            
             switch (tipoConsulta) {
                 // segun el tipo de cosulta, se cargan los datos correspondientes a la tabla
-                //llamando a los diferentes arraylist de la clase logica, y se filtran por mes y año
+                // llamando a los diferentes arraylist de la clase logica, y se filtran por mes
+                // y año
                 case "Ingresos":
 
                     mtConsultaIngresos.setRowCount(0);
                     for (int i = 0; i < logica.ingresos.size(); i++) {
                         if (logica.ingresos.get(i).getMes().equalsIgnoreCase(mes)
                                 && logica.ingresos.get(i).getAño().equals(anio)) {
-                            mtConsultaIngresos.addRow(new Object[] { logica.ingresos.get(i).getColaborador(),
-                                    "₡"+logica.ingresos.get(i).getMonto(),
-                                    logica.ingresos.get(i).getFecha(),
-                                    logica.ingresos.get(i).getMetodo() });
+                            mtConsultaIngresos
+                                    .addRow(new Object[] { logica.ingresos.get(i).getColaborador().getNombre(),
+                                            "₡" + logica.ingresos.get(i).getMonto(),
+                                            logica.ingresos.get(i).getFecha(),
+                                            logica.ingresos.get(i).getMetodo() });
                             ingreso += logica.ingresos.get(i).getMonto();
 
                         }
@@ -626,7 +696,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                         JOptionPane.showMessageDialog(null, "Consulta realizada exitosamente");
                     }
 
-                    balanceArea.setText("Total de ingresos: " + ingreso);
+                    balanceArea.setText("Total de ingresos en " + mes + ": ₡" + ingreso);
 
                     break;
                 case "Gastos":
@@ -635,7 +705,7 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                     for (int i = 0; i < logica.gastos.size(); i++) {
                         if (logica.gastos.get(i).getMes().equalsIgnoreCase(mes)
                                 && logica.gastos.get(i).getAño().equals(anio)) {
-                            mtConsultaGastos.addRow(new Object[] { "₡"+logica.gastos.get(i).getMonto(),
+                            mtConsultaGastos.addRow(new Object[] { "₡" + logica.gastos.get(i).getMonto(),
                                     logica.gastos.get(i).getFecha(),
                                     logica.gastos.get(i).getMotivo(),
                                     logica.gastos.get(i).getTipo(),
@@ -649,13 +719,15 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                         JOptionPane.showMessageDialog(null, "Consulta realizada exitosamente");
                     }
 
-                    balanceArea.setText("Total de gastos: ₡" + gasto);
+                    balanceArea.setText("Total de gastos en " + mes + ": ₡" + gasto);
 
                     break;
 
-                // en este caso se calcula el balance, y se muestra en un JOptionPane si es positivo, negativo o cero
+                // en este caso se calcula el balance, y se muestra en un JOptionPane si es
+                // positivo, negativo o cero
                 // y se muestra el total de ingresos y gastos en el textArea
-                // se hace un ciclo for para recorrer los arraylist de ingresos y gastos, y se filtran por mes y año
+                // se hace un ciclo for para recorrer los arraylist de ingresos y gastos, y se
+                // filtran por mes y año
                 case "Balance":
 
                     // calcular el balance
@@ -673,15 +745,13 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
                         }
                     }
                     balance = ingreso - gasto;
-                    String balanceString = "Balance del mes " + mes + " del año " + anio + ": " + balance;
-                    String balanceString2 = "Total de ingresos: " + ingreso + "\n" + "Total de gastos: " + gasto;
-                    balanceArea.setText(balanceString + "\n" + balanceString2);
-                    balanceArea.setEditable(false);
-                    balanceArea.setLineWrap(true);
-                    balanceArea.setWrapStyleWord(true);
-                    balanceArea.setVisible(true);
-                    // Mostrar el balance en un JOptionPane
 
+                    balanceArea.setText("Información de " + mes + " de " + anio + ": \n\n" +
+                            "Total de ingresos: ₡" + ingreso + "\n" +
+                            "Total de gastos: ₡" + gasto + "\n" +
+                            "Saldo disponible: ₡" + balance);
+
+                    // Mostrar el balance en un JOptionPane
                     if (balance > 0) {
                         JOptionPane.showMessageDialog(null, "Consulta realizada exitosamente. El balance es positivo.");
                     } else if (balance < 0) {
@@ -703,12 +773,13 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         buttonDetalles.setBackground(new Color(0x097CFF));
         buttonDetalles.setForeground(Color.white);
         buttonDetalles.addActionListener(e -> {
-            // aqui se le muestra al usuario los detalles del gasto seleccionado, y se le da la opcion de ver los detalles de un gasto en especifico
+            // aqui se le muestra al usuario los detalles del gasto seleccionado, y se le da
+            // la opcion de ver los detalles de un gasto en especifico
             if (tipoConsultaJCombo.getSelectedIndex() == 1) {
 
                 int filaSeleccionada = tablaConsulta.getSelectedRow();
                 if (filaSeleccionada != -1) {
-                    String detalles = logica.gastos.get(filaSeleccionada).mostrarGasto() ;
+                    String detalles = logica.gastos.get(filaSeleccionada).mostrarGasto();
                     JOptionPane.showMessageDialog(null, detalles, "Detalles del gasto",
                             JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -722,14 +793,16 @@ public class Vista extends JFrame { // Acá se implementa herencia, heredamos nu
         });
         panel.add(buttonDetalles);
 
-
-        // aqui se le muestra al usuario las estadisticas generales, como el total de ingresos, gastos y el balance total de todos los ingresos y gastos registrados
-        JButton buttonEstadisticas = new JButton("Ver estadisticas generales");
-        buttonEstadisticas.setBounds(550, 180, 300, 30);
-        buttonEstadisticas.setBackground(Color.green);
+        // aqui se le muestra al usuario las estadisticas generales, como el total de
+        // ingresos, gastos y el balance total de todos los ingresos y gastos
+        // registrados
+        JButton buttonEstadisticas = new JButton("Reporte general");
+        buttonEstadisticas.setBounds(50, 600, 120, 30);
+        buttonEstadisticas.setBackground(new Color(0xFF832251));
         buttonEstadisticas.setForeground(Color.white);
         buttonEstadisticas.addActionListener(e -> {
-            String estadisticas = "Total de ingresos hasta el momento: ₡" + logica.totalIngresos + "\n" + "Total de gastos hasta el momento:  ₡"
+            String estadisticas = "Total de ingresos hasta el momento: ₡" + logica.totalIngresos + "\n"
+                    + "Total de gastos hasta el momento:  ₡"
                     + logica.totalGastos + "\n" + "Balance total: ₡" + logica.Balance;
             JOptionPane.showMessageDialog(null, estadisticas, "Estadísticas generales",
                     JOptionPane.INFORMATION_MESSAGE);

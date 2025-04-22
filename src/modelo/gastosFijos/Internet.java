@@ -8,15 +8,6 @@ public class Internet extends Gastos {
     final static String proveedor = "Starlink";
     final static int megas = 300;
 
-    public Internet() {
-        super();
-    }
-
-    public Internet(Float monto, LocalDate fecha, String motivo, String mes, String categoria, String año) {
-        super(monto, fecha, motivo, mes, categoria, año);
-    }
-
-
 
     @Override
     public String mostrarAdicionales() {
@@ -24,6 +15,11 @@ public class Internet extends Gastos {
         txt += "Proveedor: " + proveedor + "\n";
         txt += "Megas contradas: " + megas + "\n";
         return txt;
+    }
+
+    
+    public Internet(Float monto, LocalDate fecha, String motivo, String mes, String categoria, String año) {
+        super(monto, fecha, motivo, mes, categoria, año);
     }
 
     @Override

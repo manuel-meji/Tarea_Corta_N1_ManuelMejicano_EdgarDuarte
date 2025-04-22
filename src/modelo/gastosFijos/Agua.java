@@ -11,9 +11,6 @@ public class Agua extends Gastos  {
    final static String proveedor = "AYA";
    final static String nAbonado = "1234567890";
 
-    public Agua() {
-        
-    }
 
 @Override
     public String mostrarAdicionales() {

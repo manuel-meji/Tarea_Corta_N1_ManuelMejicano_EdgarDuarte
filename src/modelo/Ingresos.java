@@ -4,14 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Ingresos implements Serializable{
-    String colaborador,mes,año;
+    Colaborador colaborador;
+    String mes,año;
     LocalDate fecha;
     String metodo;
     float monto;
 
 
     
-public Ingresos(String colaborador,String mes,String año,LocalDate fecha, String metodo, float monto) {
+public Ingresos(Colaborador colaborador,String mes,String año,LocalDate fecha, String metodo, float monto) {
         this.colaborador = colaborador;
         this.mes = mes;
         this.año = año;
@@ -21,10 +22,10 @@ public Ingresos(String colaborador,String mes,String año,LocalDate fecha, Strin
     }
 
 
-    public String getColaborador() {
+    public Colaborador getColaborador() {
         return colaborador;
     }
-    public void setColaborador(String colaborador) {
+    public void setColaborador(Colaborador colaborador) {
         this.colaborador = colaborador;
     }
     public LocalDate getFecha() {

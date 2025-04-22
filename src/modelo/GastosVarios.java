@@ -6,13 +6,6 @@ import java.time.LocalDate;
 public class GastosVarios extends Gastos {
 
      String categoria;
-
-    public GastosVarios() {
-        super();
-    }
-
-    
-
   
 
     public GastosVarios(String categoria) {
